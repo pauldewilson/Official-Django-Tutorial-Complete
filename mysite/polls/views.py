@@ -1,25 +1,40 @@
-from django.http import HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from .models import Question
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.views import generic
+from .models import Question, Choice
 
-# Create your views here.
-def index(request):
-    # five most recent questions added
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    # context which provides to template any variables
-    context = {
-        'latest_question_list': latest_question_list,
-    }
-    # render template
-    return render(request, 'polls/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    context = {'question': question}
-    return render(request, 'polls/detail.html', context)
+    def get_queryset(self):
+        """Return last five published questions"""
+        return Question.objects.order_by('-pub_date')[:5]
 
-def results(request, question_id):
-    return HttpResponse(f'You are looking at the results of question {question_id}')
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
 
 def vote(request, question_id):
-    return HttpResponse(f'You are voting on question {question_id}')
+    # attempt to fetch question
+    question = get_object_or_404(Question, pk=question_id)
+    try:
+        # get selected choice from the question via post data
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # if posted without a choice then render detail page with error message
+        return render(request, 'polls/detail.html', {
+            'question': question,
+            'error_message': "You didn't select a choice"
+        })
+    else:
+        # incremenet the choice by 1
+        selected_choice.votes += 1
+        selected_choice.save()
+        # redirect after successful post
+        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
