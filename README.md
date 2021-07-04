@@ -32,6 +32,7 @@ It's not styled.
 
 <ol>
     <li>Clone this repo
+    <li>Within the root dir ( where requirements.txt is) on command line run `pip install -r requirements.txt`
     <li>Within `\mysite` on command line run `python manage.py runserver`
     <li>Visit <a link href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a> in your browser
     <li>Done. The db.sqlite3 file is already migrated and contains sample data
