@@ -5,8 +5,11 @@ from django.views import generic
 from .models import Question, Choice
 from django.utils import timezone
 
-class IndexView(generic.ListView):
+class IndexView(generic.TemplateView):
     template_name = 'polls/index.html'
+
+class PollsIndexView(generic.ListView):
+    template_name = 'polls/pollsindex.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):

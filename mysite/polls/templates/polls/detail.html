@@ -4,7 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Detail</title>
+    
+    {% load static %}
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'polls/style.css' %}"
+    />
+
+    <title>Polls App - Question</title>
   </head>
   <body>
     <form action="{% url 'polls:vote' question.id %}" method="post">
@@ -26,6 +35,6 @@
       </fieldset>
       <input type="submit" value="Vote" />
     </form><br>
-    <a href="{% url 'polls:index' %}">Go home</a>
+    <a href="{% url 'polls:pollsindex' %}">Go home</a>
   </body>
 </html>

@@ -4,7 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Detail</title>
+
+    {% load static %}
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'polls/style.css' %}"
+    />
+
+    <title>Polls App - Results</title>
   </head>
   <body>
     <h1>{{ question.question_text }}</h1>
@@ -19,6 +28,6 @@
 
     <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
     <br>
-    <a href="{% url 'polls:index' %}">Go home</a>
+    <a href="{% url 'polls:pollsindex' %}">Go home</a>
   </body>
 </html>
