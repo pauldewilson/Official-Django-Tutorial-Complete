@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body {
     background: white url("images/background.png") repeat;
+    font-family: 'Roboto';
 }
 
-li a {
+a {
     color: green;
+}
+
+.a_large {
+    font-size: 40px;
+    text-decoration: none;
 }

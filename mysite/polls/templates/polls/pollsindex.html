@@ -19,11 +19,8 @@
   <h1>Available Polls</h1>
   <a link href="{% url 'polls:index' %}">Back to homepage</a><br>
 
-  <h3><a link href="/admin">Login to the customised admin site to create questions & choices</a></h3>
-  <ul>
-    <li>Username: admin
-    <li>Password: admin
-  </ul>
+  <a class="a_large" link href="/admin">Login to custom admin site (admin, admin)</a>
+
     {% if latest_question_list %}
     <h3>Available Polls</h3>
     <ul>
